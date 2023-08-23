@@ -1,0 +1,15 @@
+.item {
+    @apply inline-flex items-center;
+}
+
+.item + .item {
+    @apply ml-3;
+}
+
+.item .color {
+    @apply w-2 h-2 rounded-sm;
+}
+
+.item .label {
+    @apply font-sans text-[0.625rem] font-semibold uppercase ml-1 text-[#5F6E7C];
+}

@@ -1,0 +1,15 @@
+.wrap {
+    @apply overflow-x-hidden;
+}
+
+.block {
+    @apply m-4 border border-gray-200 rounded-xl px-4 py-3;
+}
+
+.block .title {
+    @apply text-xl font-bold;
+}
+
+.two-cols {
+    @apply grid grid-cols-2 gap-4;
+}

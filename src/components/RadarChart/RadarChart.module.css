@@ -1,0 +1,8 @@
+.wrap {
+    @apply h-[24.375rem] w-[100%];
+}
+
+.wrap :global(.recharts-polar-angle-axis-tick-value),
+.wrap :global(.recharts-polar-radius-axis-tick-value) {
+    @apply fill-[#5f6e7c] font-bold text-[0.625rem];
+}
