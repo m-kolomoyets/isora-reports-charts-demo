@@ -25,7 +25,7 @@ const Charts: React.FC = () => {
                     <DateLineChart currentName={CURRENT_NAME} data={DATE_LINE_CHART_DATA} />
                 </div>
                 <div className={s.block}>
-                    <h2 className={s.title}>Questionnaire Score Over Time</h2>
+                    <h2 className={s.title}>Questionnaire Score Distribution</h2>
                     <SpreadLineChart
                         currentName={CURRENT_NAME}
                         gaussMaximum={MOCK_SPREAD_MAXIMUM}
