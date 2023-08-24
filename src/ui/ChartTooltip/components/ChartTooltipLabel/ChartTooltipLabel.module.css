@@ -1,0 +1,23 @@
+.wrap {
+    @apply flex;
+}
+
+.wrap + .wrap {
+    @apply mt-2;
+}
+
+.wrap .color {
+    @apply w-2 h-[2.25rem] flex-shrink-0 rounded-sm mr-2;
+}
+
+.wrap .value-wrap {
+    @apply flex flex-col;
+}
+
+.value-wrap .label {
+    @apply font-sans text-[0.625rem] font-semibold uppercase text-[#5F6E7C];
+}
+
+.value-wrap .value {
+    @apply font-sans text-[0.8125rem] font-semibold;
+}

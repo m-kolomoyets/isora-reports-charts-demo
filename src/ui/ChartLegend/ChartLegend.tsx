@@ -6,9 +6,9 @@ import s from './ChartLegend.module.css';
 const ChartLegend: React.FC<ChartLegendProps> = ({ className, payload }) => {
     return (
         <ul className={clsx(s.list, className)}>
-            {payload?.map((item) => {
+            {payload?.map((item, index) => {
                 return (
-                    <li className={s.item} key={item.id}>
+                    <li className={s.item} key={index}>
                         <span
                             className={s.color}
                             style={{

@@ -1,0 +1,35 @@
+.wrap {
+    @apply bg-white border border-gray-200 rounded-lg p-3 shadow-sm;
+}
+
+.wrap .title {
+    @apply font-sans text-[0.8125rem] font-semibold mb-3 flex items-center;
+}
+
+.title .tag {
+    @apply w-2 h-4 rounded-sm mr-2;
+}
+
+.item {
+    @apply flex;
+}
+
+.item + .item {
+    @apply mt-2;
+}
+
+.item .color {
+    @apply w-2 h-[2.25rem] flex-shrink-0 rounded-sm mr-2;
+}
+
+.item .value-wrap {
+    @apply flex flex-col;
+}
+
+.value-wrap .label {
+    @apply font-sans text-[0.625rem] font-semibold uppercase text-[#5F6E7C];
+}
+
+.value-wrap .value {
+    @apply font-sans text-[0.8125rem] font-semibold;
+}

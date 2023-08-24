@@ -2,6 +2,7 @@ import { memo } from 'react';
 import clsx from 'clsx';
 import type { ChartTooltipProps } from './types';
 import s from './ChartTooltip.module.css';
+import ChartTooltipLabel from './components/ChartTooltipLabel';
 
 const ChartTooltip: React.FC<ChartTooltipProps> = ({ className, title, payload }) => {
     return (
@@ -10,20 +11,7 @@ const ChartTooltip: React.FC<ChartTooltipProps> = ({ className, title, payload }
 
             <ul className={s.list}>
                 {payload?.map((item) => {
-                    return (
-                        <li className={s.item} key={item.color}>
-                            <span
-                                className={s.color}
-                                style={{
-                                    backgroundColor: item.color,
-                                }}
-                            />
-                            <span className={s['value-wrap']}>
-                                <span className={s.label}>{item.name}</span>
-                                <span className={s.value}>{item.value}%</span>
-                            </span>
-                        </li>
-                    );
+                    return <ChartTooltipLabel key={item.color} {...item} />;
                 })}
             </ul>
         </div>

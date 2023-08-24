@@ -5,12 +5,14 @@ import {
     MOCK_SPREAD_MAXIMUM,
     MOCK_SPREAD_Z_SCORE,
     MOCK_SPREAD_Z_SCORE_PERCENT,
+    PIE_GROUP_DATA_ITEMS,
     RADAR_CHART_DATA,
 } from './constants';
 import SpreadLineChart from '@/components/SpreadLineChart';
 import DateLineChart from '@/components/DateLineChart';
 import RadarChart from '@/components/RadarChart';
 import s from './Charts.module.css';
+import PieChartGroup from '@/components/PieChartGroup/PieChartGroup';
 
 const Charts: React.FC = () => {
     return (
@@ -33,6 +35,10 @@ const Charts: React.FC = () => {
                         zScorePercentage={MOCK_SPREAD_Z_SCORE_PERCENT}
                     />
                 </div>
+            </div>
+            <div className={s.block}>
+                <h2 className={s.title}>Progress by Grouping</h2>
+                <PieChartGroup dataItems={PIE_GROUP_DATA_ITEMS} currentName={CURRENT_NAME} />
             </div>
         </section>
     );
