@@ -1,4 +1,5 @@
 import type { XAxisProps } from 'recharts';
+import { GAUSS_CONFIG } from '../constants';
 
 export const xAxisTickFormatter: XAxisProps['tick'] = (props) => {
     const { x, y, payload } = props;
@@ -11,12 +12,30 @@ export const xAxisTickFormatter: XAxisProps['tick'] = (props) => {
     );
 };
 
-export const getGaussianSequence = (maximum: number, precision = 101) => {
-    const a = 52;
-    const c = 12.5;
+export const gauss = (z: number) => {
+    return Math.pow(Math.E, -Math.pow(z, 2) / GAUSS_CONFIG.nu) / Math.sqrt(GAUSS_CONFIG.sigma * Math.PI);
+};
 
+export const gaussByIndex = (index: number, gaussMaximum: number) => {
+    return gauss((index - gaussMaximum + 1) / GAUSS_CONFIG.defaultDeviation);
+};
+
+export const getZScorePositionForGauss = (gaussMaximum: number, zScore: number) => {
+    const position = gaussMaximum + zScore * GAUSS_CONFIG.defaultDeviation;
+
+    switch (true) {
+        case position < 0:
+            return 0;
+        case position > 100:
+            return 100;
+        default:
+            return position;
+    }
+};
+
+export const getGaussianSequence = (maximum: number, precision = 101) => {
     return Array.from({ length: precision }, (_, index) => {
-        const result = a / Math.E ** ((index + 1 - maximum) ** 2 / (2 * c ** 2));
+        const result = gaussByIndex(index, maximum);
         return {
             name: result.toString(),
             gauss: result,

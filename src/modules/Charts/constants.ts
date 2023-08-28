@@ -88,8 +88,7 @@ export const DATE_LINE_CHART_DATA: DateLineChartItem[] = [
 ];
 
 export const MOCK_SPREAD_MAXIMUM = 50;
-export const MOCK_SPREAD_Z_SCORE = -2;
-export const MOCK_SPREAD_Z_SCORE_PERCENT = 23;
+export const MOCK_SPREAD_Z_SCORE = -2.5;
 
 export const MOCK_PIE_GROUP_DATA_ITEM_MAX = 100;
 export const PIE_GROUP_DATA_ITEMS: PieChartGroupProps['dataItems'] = {

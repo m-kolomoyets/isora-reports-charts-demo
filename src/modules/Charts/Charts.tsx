@@ -4,7 +4,6 @@ import {
     DATE_LINE_CHART_DATA,
     MOCK_SPREAD_MAXIMUM,
     MOCK_SPREAD_Z_SCORE,
-    MOCK_SPREAD_Z_SCORE_PERCENT,
     PIE_GROUP_DATA_ITEMS,
     RADAR_CHART_DATA,
 } from './constants';
@@ -32,7 +31,6 @@ const Charts: React.FC = () => {
                         currentName={CURRENT_NAME}
                         gaussMaximum={MOCK_SPREAD_MAXIMUM}
                         zScore={MOCK_SPREAD_Z_SCORE}
-                        zScorePercentage={MOCK_SPREAD_Z_SCORE_PERCENT}
                     />
                 </div>
             </div>
