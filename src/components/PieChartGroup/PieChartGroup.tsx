@@ -11,8 +11,6 @@ import ChartLegend from '@/ui/ChartLegend';
 import PieChartTooltip from './components/PieChartTooltip';
 import s from './PieChartGroup.module.css';
 
-const a = [-25, 0, 25];
-
 const PieChartGroup: React.FC<PieChartGroupProps> = ({ className, dataItems, currentName }) => {
     const [hoveredPie, setHoveredPie] = useState('');
     const [activeGroupCells, setActiveGroupCells] = useState(() => {
@@ -161,7 +159,7 @@ const PieChartGroup: React.FC<PieChartGroupProps> = ({ className, dataItems, cur
                                         return (
                                             <svg
                                                 height="36"
-                                                x={`calc(${a[index]}% + 2px - (${PIE_CHART_GRADES_TRANSLATE_BUFFERS[index]}px))`}
+                                                x={`calc(${memoizedPieCXPositions[index]}% - 50%)`}
                                                 y="47%"
                                             >
                                                 <text
@@ -185,7 +183,7 @@ const PieChartGroup: React.FC<PieChartGroupProps> = ({ className, dataItems, cur
                                         return (
                                             <svg
                                                 height="36"
-                                                x={`calc(${a[index]}% + 2px - (${PIE_CHART_GRADES_TRANSLATE_BUFFERS[index]}px))`}
+                                                x={`calc(${memoizedPieCXPositions[index]}% - 50%)`}
                                                 y="56%"
                                             >
                                                 <text

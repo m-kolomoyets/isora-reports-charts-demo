@@ -6,3 +6,11 @@ export const cn = (...values: ClassValue[]) => {
 };
 
 export const noop = () => {};
+
+export const truncateString = (value: string, length = 15) => {
+    if (value.length <= length) {
+        return value;
+    }
+
+    return `${value.slice(0, length)}...`;
+};
