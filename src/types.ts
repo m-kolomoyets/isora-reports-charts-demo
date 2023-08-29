@@ -1,3 +1,5 @@
+import { GRADES_CONFIG } from './constants';
+
 export type ObjValues<T> = T[keyof T];
 
 export type WithClassName<T> = T & {
@@ -21,3 +23,5 @@ export type ObjectOfStringsType = {
 };
 
 export type SetStateValue<T> = React.Dispatch<React.SetStateAction<T>>;
+
+export type Grades = keyof typeof GRADES_CONFIG;

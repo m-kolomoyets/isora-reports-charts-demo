@@ -145,7 +145,7 @@ const PieChartGroup: React.FC<PieChartGroupProps> = ({ className, dataItems, cur
                                                         fontWeight={600}
                                                         fill="#202932"
                                                     >
-                                                        D
+                                                        A
                                                     </text>
                                                 </g>
                                             </svg>

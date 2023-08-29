@@ -1,0 +1,13 @@
+.wrap {
+    --grade-label-size: 1.75rem;
+
+    @apply w-[var(--grade-label-size)] h-[var(--grade-label-size)] rounded-md border border-solid flex justify-center items-center flex-shrink-0;
+}
+
+.wrap.lg {
+    --grade-label-size: 2.25rem;
+}
+
+.wrap .label {
+    @apply text-sm font-semibold mt-[1px];
+}

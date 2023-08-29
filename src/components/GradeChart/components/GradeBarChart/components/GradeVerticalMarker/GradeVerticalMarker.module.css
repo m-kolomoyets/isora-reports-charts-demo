@@ -1,0 +1,7 @@
+.wrap {
+    @apply flex flex-col items-center;
+}
+
+.wrap .label {
+    @apply inline-block text-2xs font-semibold truncate mt-1 uppercase max-w-[200px] bg-grey-0;
+}

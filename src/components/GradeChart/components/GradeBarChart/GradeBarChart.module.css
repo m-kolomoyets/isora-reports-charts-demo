@@ -1,0 +1,43 @@
+.wrap {
+    @apply flex flex-grow mb-14;
+}
+
+.grade-section:not(:last-of-type) {
+    @apply flex-grow flex items-center;
+}
+
+.bar {
+    @apply relative h-2 w-full rounded-sm -mx-2 mt-4;
+}
+
+.vertical {
+    @apply flex flex-col items-center flex-grow-0;
+}
+
+.grade-section:first-of-type .vertical {
+    @apply mr-1;
+}
+
+.divider {
+    @apply w-[1px] h-6 my-2 bg-grey-100;
+}
+
+.grade-percent {
+    @apply text-center text-2xs text-grey-600 font-semibold;
+}
+
+.grade-marker {
+    @apply absolute -translate-x-1/2 top-[calc(-100%-1px)];
+}
+
+.grade-marker.current {
+    @apply text-grey-1000 z-10;
+}
+
+.grade-marker.avg {
+    @apply text-grey-600;
+}
+
+.grade-marker.label-overflow :global(.grade-marker-label) {
+    @apply -translate-x-1/2;
+}
