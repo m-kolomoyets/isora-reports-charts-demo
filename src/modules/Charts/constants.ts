@@ -88,7 +88,7 @@ export const DATE_LINE_CHART_DATA: DateLineChartItem[] = [
 ];
 
 export const MOCK_SPREAD_MAXIMUM = 50;
-export const MOCK_SPREAD_Z_SCORE = -1.5;
+export const MOCK_SPREAD_Z_SCORE = -1;
 
 export const MOCK_PIE_GROUP_DATA_ITEM_MAX = 100;
 export const PIE_GROUP_DATA_ITEMS: PieChartGroupProps['dataItems'] = {
@@ -231,14 +231,6 @@ export const PIE_GROUP_DATA_ITEMS: PieChartGroupProps['dataItems'] = {
             colorId: 'continuously-improving',
         },
     ],
-};
-
-export const MOCK_PIE_CHART_COLORS_CONFIG: Record<string, string> = {
-    'not-performed': '#890101',
-    'performed-informally': '#F00505',
-    'planned-and-tracked': '#EC720E',
-    'quantitatively-controlled': '#3B932A',
-    'continuously-improving': '#0D86F8',
 };
 
 export const MOCK_GRADE_CHART_AVERAGE = 75;

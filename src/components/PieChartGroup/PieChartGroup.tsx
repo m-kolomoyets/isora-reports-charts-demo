@@ -1,12 +1,22 @@
-import { memo, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import { produce } from 'immer';
 import { PieChart, ResponsiveContainer, Legend, Tooltip, Pie, Cell, Label } from 'recharts';
 import clsx from 'clsx';
 import type { PieChartGroupProps } from './types';
 import { removeDuplicatesFromObjectsArray } from './utils/removeDuplicatesFromObjectsArray';
 import { getPercentageSpreadByAmount } from './utils/getPercentageSpreadByAmount';
-import { MOCK_PIE_CHART_COLORS_CONFIG } from '@/modules/Charts/constants';
-import { PIE_CHART_GRADES_TRANSLATE_BUFFERS, PIE_CHART_OUTER_RADIUS, PIE_CHART_WIDTH } from './constants';
+import {
+    CHART_GRADES_TRANSLATE_BUFFERS,
+    CHART_HEIGHT,
+    CHART_OUTER_RADIUS,
+    CHART_STROKE_WIDTH,
+    CHART_WIDTH,
+    GRADE_LABEL_RADIUS,
+    GRADE_LABEL_SIZE,
+    INACTIVE_SECTOR_COLOR,
+    SECTOR_CORNER_RADIUS,
+    MOCK_PIE_CHART_COLORS_CONFIG,
+} from './constants';
 import ChartLegend from '@/ui/ChartLegend';
 import PieChartTooltip from './components/PieChartTooltip';
 import s from './PieChartGroup.module.css';
@@ -26,10 +36,35 @@ const PieChartGroup: React.FC<PieChartGroupProps> = ({ className, dataItems, cur
         return getPercentageSpreadByAmount(Object.keys(dataItems).length);
     }, [dataItems]);
 
+    const pieMouseEnterHandler = useCallback((name: string) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return (event: any) => {
+            setHoveredPie(name);
+            setActiveGroupCells(
+                produce((prev) => {
+                    prev[name] = event.colorId;
+                })
+            );
+        };
+    }, []);
+
+    const pieMouseLeaveHandler = useCallback(() => {
+        setHoveredPie('');
+        setActiveGroupCells(
+            Object.keys(dataItems).reduce(
+                (acc, name) => {
+                    acc[name] = '';
+                    return acc;
+                },
+                {} as Record<string, string>
+            )
+        );
+    }, [dataItems]);
+
     return (
         <div className={clsx(s.wrap, className)}>
             <ResponsiveContainer width="100%" height={250}>
-                <PieChart className={s['charts-wrap']} width={603} height={210}>
+                <PieChart className={s['charts-wrap']} width={CHART_WIDTH} height={CHART_HEIGHT}>
                     <Tooltip
                         content={(props) => {
                             const { payload } = props;
@@ -66,32 +101,13 @@ const PieChartGroup: React.FC<PieChartGroupProps> = ({ className, dataItems, cur
                                 nameKey="name"
                                 cx={`${memoizedPieCXPositions[index]}%`}
                                 cy="50%"
-                                outerRadius={PIE_CHART_OUTER_RADIUS}
-                                innerRadius={PIE_CHART_OUTER_RADIUS - PIE_CHART_WIDTH * 2}
-                                fill="#8884d8"
-                                cornerRadius={3}
-                                height={210}
+                                outerRadius={CHART_OUTER_RADIUS}
+                                innerRadius={CHART_OUTER_RADIUS - CHART_STROKE_WIDTH * 2}
+                                cornerRadius={SECTOR_CORNER_RADIUS}
+                                height={CHART_HEIGHT}
                                 paddingAngle={1}
-                                onMouseEnter={(event) => {
-                                    setHoveredPie(name);
-                                    setActiveGroupCells(
-                                        produce((prev) => {
-                                            prev[name] = event.colorId;
-                                        })
-                                    );
-                                }}
-                                onMouseLeave={() => {
-                                    setHoveredPie('');
-                                    setActiveGroupCells(
-                                        Object.keys(dataItems).reduce(
-                                            (acc, name) => {
-                                                acc[name] = '';
-                                                return acc;
-                                            },
-                                            {} as Record<string, string>
-                                        )
-                                    );
-                                }}
+                                onMouseEnter={pieMouseEnterHandler(name)}
+                                onMouseLeave={pieMouseLeaveHandler}
                             >
                                 {data.map((cell, index) => {
                                     return (
@@ -99,7 +115,7 @@ const PieChartGroup: React.FC<PieChartGroupProps> = ({ className, dataItems, cur
                                             key={index}
                                             fill={
                                                 hoveredPie === name && activeGroupCells[name] !== cell.colorId
-                                                    ? '#F4F4F5'
+                                                    ? INACTIVE_SECTOR_COLOR
                                                     : MOCK_PIE_CHART_COLORS_CONFIG[cell.colorId]
                                             }
                                             radius={25}
@@ -118,22 +134,31 @@ const PieChartGroup: React.FC<PieChartGroupProps> = ({ className, dataItems, cur
                                     id="grade"
                                     position="center"
                                     content={() => {
+                                        const xPosition = `calc(${memoizedPieCXPositions[index]}% - ${
+                                            GRADE_LABEL_SIZE / 2
+                                        }px - ${CHART_GRADES_TRANSLATE_BUFFERS[index]}px)`;
+
                                         return (
                                             <svg
-                                                viewBox="0 0 28 28"
-                                                width="28"
-                                                height="28"
-                                                x={`calc(${memoizedPieCXPositions[index]}% - 14px - ${PIE_CHART_GRADES_TRANSLATE_BUFFERS[index]}px)`}
+                                                viewBox={`0 0 ${GRADE_LABEL_SIZE} ${GRADE_LABEL_SIZE}`}
+                                                width={GRADE_LABEL_SIZE}
+                                                height={GRADE_LABEL_SIZE}
+                                                x={xPosition}
                                                 y="32%"
                                             >
                                                 <g>
-                                                    <rect width="28" height="28" fill="#F0F7EF" rx="6" />
                                                     <rect
-                                                        width="28"
-                                                        height="28"
+                                                        width={GRADE_LABEL_SIZE}
+                                                        height={GRADE_LABEL_SIZE}
+                                                        fill="#F0F7EF"
+                                                        rx={GRADE_LABEL_RADIUS}
+                                                    />
+                                                    <rect
+                                                        width={GRADE_LABEL_SIZE}
+                                                        height={GRADE_LABEL_SIZE}
                                                         stroke="#D9EAD6"
                                                         strokeWidth={1}
-                                                        rx="6"
+                                                        rx={GRADE_LABEL_RADIUS}
                                                         fill="transparent"
                                                     />
                                                     <text
@@ -208,7 +233,7 @@ const PieChartGroup: React.FC<PieChartGroupProps> = ({ className, dataItems, cur
                                         return (
                                             <svg
                                                 height="36"
-                                                x={`calc(${memoizedPieCXPositions[index]}% - 25px - ${PIE_CHART_GRADES_TRANSLATE_BUFFERS[index]}px)`}
+                                                x={`calc(${memoizedPieCXPositions[index]}% - 25px - ${CHART_GRADES_TRANSLATE_BUFFERS[index]}px)`}
                                                 y="70%"
                                             >
                                                 <g>

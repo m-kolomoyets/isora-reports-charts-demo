@@ -84,3 +84,23 @@ export const GRADES_RANGES: Record<Grades, { min: number; max: number }> = {
 export const ROUTES = {
     notFound: '/404',
 } as const;
+
+export const CHART_CONFIG = {
+    colors: {
+        transparent: 'transparent',
+        axis: '#EAEDF0',
+        grey: '#5F6E7C',
+        black: '#202932',
+        blue: '#0D86F8',
+    },
+    axisReset: {
+        axisLine: false,
+        tickLine: false,
+        tick: false,
+    },
+    tickTypography: {
+        fontSize: 10,
+        fontWeight: 600,
+        textAnchor: 'middle',
+    },
+};

@@ -3,6 +3,8 @@ import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, Responsi
 import clsx from 'clsx';
 import type { DateLineChartProps } from './types';
 import { getLinesConfig } from './utils/common';
+import { CHART_CONFIG } from '@/constants';
+import { CHART_WIDTH, CHART_HEIGHT, CHART_MARGIN, HOVERED_COLUMN_COLOR, Y_AXIS_DOMAIN } from './constants';
 import ChartTooltip from '@/ui/ChartTooltip';
 import ChartLegend from '@/ui/ChartLegend';
 import XAxisTick from './components/XAxisTick';
@@ -15,7 +17,7 @@ const DateLineChart: React.FC<DateLineChartProps> = ({ className, data, currentN
 
     const columnsColors = useMemo(() => {
         return Array.from({ length: data.length }, (_, index) => {
-            return index === hoveredColumnIndex ? 'rgba(0, 0, 0, 0.05)' : 'transparent';
+            return index === hoveredColumnIndex ? HOVERED_COLUMN_COLOR : CHART_CONFIG.colors.transparent;
         });
     }, [data.length, hoveredColumnIndex]);
 
@@ -23,10 +25,10 @@ const DateLineChart: React.FC<DateLineChartProps> = ({ className, data, currentN
         <div className={clsx(s.wrap, className)}>
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart
-                    width={730}
-                    height={250}
+                    width={CHART_WIDTH}
+                    height={CHART_HEIGHT}
                     data={data}
-                    margin={{ right: 20, left: -35 }}
+                    margin={CHART_MARGIN}
                     onMouseMove={(event) => {
                         setHoveredColumnIndex(event.activeTooltipIndex ?? undefined);
                         setHoveredColumnCoords(
@@ -39,18 +41,23 @@ const DateLineChart: React.FC<DateLineChartProps> = ({ className, data, currentN
                         );
                     }}
                 >
-                    <CartesianGrid verticalFill={columnsColors} stroke="#EAEDF0" />
+                    <CartesianGrid verticalFill={columnsColors} stroke={CHART_CONFIG.colors.axis} />
                     <XAxis
                         type="category"
                         dataKey="year"
-                        axisLine={false}
-                        tickLine={false}
+                        {...CHART_CONFIG.axisReset}
                         tickMargin={7}
                         dx={60}
                         scale="linear"
                         tick={XAxisTick}
                     />
-                    <YAxis type="number" axisLine={false} tickLine={false} tickCount={6} tick={YAxisTick} />
+                    <YAxis
+                        type="number"
+                        {...CHART_CONFIG.axisReset}
+                        tickCount={6}
+                        domain={Y_AXIS_DOMAIN}
+                        tick={YAxisTick}
+                    />
                     <Tooltip
                         cursor={{ strokeWidth: 0 }}
                         position={hoveredColumnCoords}

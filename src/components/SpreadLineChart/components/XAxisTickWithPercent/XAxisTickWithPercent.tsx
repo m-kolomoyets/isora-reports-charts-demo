@@ -1,11 +1,12 @@
 import type { XAxisProps } from 'recharts';
+import { CHART_CONFIG } from '@/constants';
 
 const XAxisTickWithPercent: XAxisProps['tick'] = (props) => {
     const { x, y, payload } = props;
 
     return (
-        <g transform={`translate(${x},${y})`}>
-            <text dy={10} textAnchor="middle" fill="#5F6E7C" fontSize={10} fontWeight={600}>
+        <g transform={`translate(${x},${y + 12})`}>
+            <text dy={10} fill={CHART_CONFIG.colors.grey} {...CHART_CONFIG.tickTypography}>
                 {payload.value}%
             </text>
         </g>

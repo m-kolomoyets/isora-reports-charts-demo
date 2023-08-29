@@ -12,7 +12,7 @@ import {
 import clsx from 'clsx';
 import type { RadarChartProps } from './types';
 import { getRadarsConfig, radiusAxisTickFormatter } from './utils/common';
-import { DEFAULT_TOOLTIP_PROPS, RADAR_CHART_MAX_MARK } from './constants';
+import { CHART_MARGIN, CHART_OUTER_RADIUS, DEFAULT_TOOLTIP_PROPS, RADAR_CHART_MAX_MARK } from './constants';
 import ChartTooltip from '@/ui/ChartTooltip';
 import ChartLegend from '@/ui/ChartLegend';
 import s from './RadarChart.module.css';
@@ -21,7 +21,7 @@ const RadarChart: React.FC<RadarChartProps> = ({ className, data, currentName })
     return (
         <div className={clsx(s.wrap, className)}>
             <ResponsiveContainer width="100%" height="100%">
-                <ReRadarChart cx="50%" cy="50%" outerRadius="80%" data={data} margin={{ top: 5 }}>
+                <ReRadarChart cx="50%" cy="50%" outerRadius={CHART_OUTER_RADIUS} data={data} margin={CHART_MARGIN}>
                     <PolarGrid stroke="#EAEDF0" />
                     <PolarAngleAxis dataKey="category" className={s['categories-labels-wrap']} />
                     <PolarRadiusAxis
